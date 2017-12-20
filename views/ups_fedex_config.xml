@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_ups_config_form" model="ir.ui.view">
+            <field name="name">UPS.config.form</field>
+            <field name="model">ups.config</field>
+            <field name="arch" type="xml">
+                <form string="ups Configuration">
+                    <sheet>
+                        <group name='config'>
+                            <field name="name" required="1"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="password" required="1"/>
+                                <field name="access_key" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+         <record model="ir.ui.view" id="ups_config_tree_view">
+            <field name="name">UPS.config.tree.view</field>
+            <field name="model">ups.config</field>
+            <field name="arch" type="xml">
+                <tree string="ups  Configurations">
+                    <field name="name"/>
+                    <field name="password"/>
+                </tree>
+            </field>
+        </record>
+         <record id="action_ups_config1212" model="ir.actions.act_window">
+            <field name="name">UPS Settings</field>
+            <field name="res_model">ups.config</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="ups_config_tree_view"/>
+        </record>
+        <menuitem action="action_ups_config1212" id="menu_ups_settings01" name="UPS Setting" parent="purchase.menu_purchase_config_purchase" sequence="3"/>
+    </data>
+</openerp>

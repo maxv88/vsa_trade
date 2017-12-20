@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.cron" id="updating_status">
+            <field name='name'>Updating VSA_Status</field>
+            <field name='interval_number'>1</field>
+            <field name='interval_type'>hours</field>
+            <field name="numbercall">-1</field>
+            <field name="active">False</field>
+            <field name="model">purchase.order</field>
+            <field name="function">cron_for_url_scrapping</field>
+            <field name="args">()</field>
+        </record>
+    </data>
+</openerp>

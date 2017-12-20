@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="vsa_purchase">
+        <field name="name">purchase.order.form.analytic.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='partner_ref']" position="after">
+
+               <field name="delivered" invisible="1"/>
+               <field name="tracking_no"/>
+               <field name="carrier_selection"/>
+               <field name="last_status"/>
+               <field name="expected_arrival" />
+            </xpath>
+            <!--<xpath expr="/form/*" position="inside">-->
+                <!--<header>-->
+                    <!--<button name="cron_for_url_scrapping" string="Update" states="draft"  type="object" class="oe_highlight"/>-->
+                <!--</header>-->
+
+            <!--</xpath>-->
+            <xpath expr="//notebook" position="inside">
+                <page string="Tracking Status">
+                    <field name="last_status_line">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="date" />
+
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='taxes_id']" position="after">
+                <field name="product_weight"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+                <field name="weight_subtotal"/>
+            </xpath>
+            <xpath expr="//field[@name='amount_total']" position="after">
+                <div class="oe_subtotal_footer_separator oe_inline">
+                <label  for="total_weight" />
+                </div>
+                <field  name="total_weight"  nolabel="1" class="oe_subtotal_footer_separator" />
+            </xpath>
+        </field>
+    </record>
+        <record model="ir.ui.view" id="vsa_purchase_tree">
+        <field name="name">purchase.order.tree</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='origin']" position="before">
+               <field name="last_status" />
+               <field name="expected_arrival" />
+            </xpath>
+            <xpath expr="//field[@name='origin']" position="attributes"><attribute name='invisible'>1</attribute> </xpath>
+        </field>
+    </record>
+        <record id="view_purchase_order__vsa_group" model="ir.ui.view">
+            <field name="name">Update Status</field>
+            <field name="model">vsa.button.wizard</field>
+            <field name="arch" type="xml">
+               <form string="Update Status">
+
+
+                    <footer>
+                        <button name="button_call" string="Update Status" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+         <act_window name="Update Status"
+            res_model="vsa.button.wizard"
+            src_model="purchase.order"
+            view_mode="form"
+            target="new"
+            multi="True"
+            key2="client_action_multi"
+            id="action_view_purchase_vsa_order_group"/>
+
+
+
+    </data>
+</openerp>
